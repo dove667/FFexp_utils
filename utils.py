@@ -409,7 +409,7 @@ def calculate_uncertainty_a(data):
     std_dev = np.sqrt(np.sum((data_array - mean) ** 2) / (n - 1))
     # 计算平均值的标准不确定度（A类不确定度）
     mu_a = std_dev / np.sqrt(n)
-    return round(mu_a, 3)
+    return mu_a
 
 # 计算B类不确定度
 def calculate_uncertainty_b(estimation, resolution, distribution='uniform'):
@@ -432,7 +432,7 @@ def calculate_uncertainty_b(estimation, resolution, distribution='uniform'):
         mu_b = np.sqrt(estimation**2 + resolution**2) / 3
     else:
         raise ValueError("分布类型必须是'uniform'或'normal'")
-    return round(mu_b, 3)
+    return mu_b
 
 # 合成不确定度
 def combine_uncertainties(t,mu_a,kp,mu_b):
@@ -447,8 +447,8 @@ def combine_uncertainties(t,mu_a,kp,mu_b):
         float: 合成不确定度
     """
     # 平方和开方法计算合成不确定度
-    u_c = np.sqrt((t*mu_a)**2 + (kp*mu_b)**2)
-    return round(u_c, 3)
+    mu = np.sqrt((t*mu_a)**2 + (kp*mu_b)**2)
+    return mu
 # 不确定度传递
 def uncertainty_propagation(func, values, uncertainties, variables=None):
     """
@@ -498,7 +498,7 @@ def uncertainty_propagation(func, values, uncertainties, variables=None):
     result_func = sp.lambdify(sym_vars, sym_func)
     result = result_func(*values)
     
-    return round(result, 3), round(total_uncertainty, 3)
+    return round(result, 3), round(total_uncertainty, 5)
 
 # 单摆测量重力加速度函数
 def pendulum_gravity(L, T):
