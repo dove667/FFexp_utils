@@ -1,6 +1,6 @@
 # 基物实验数据处理包
 
-这是一个用于物理实验数据处理的Python工具包，提供了一系列函数用于数据统计分析、可视化和误差计算等功能。
+这是一个用于基础物理实验数据处理的Python工具包，提供了一系列函数用于数据统计分析、可视化和不确定度计算等功能。
 
 ## 主要功能
 
@@ -9,83 +9,67 @@
 - 置信区间计算
 - Sigma区间概率计算
 - 区间频数、概率和概率密度计算
+- 自动划分数据区间
 
 ### 2. 数据可视化
 - 频率分布直方图与正态分布拟合
 - 统计信息表格绘制
 - 概率密度表格绘制
 - 线性回归图绘制
+- 表格数据可视化
 
 ### 3. 数据处理
 - 线性回归分析
-- 误差传递计算
+- 不确定度传递计算
 - 数据导出（CSV、Excel、TXT）
 - 批量数据处理
+- A类不确定度计算
+- B类不确定度计算
+- 合成不确定度计算
+- 间接不确定度的传递
 
-## 使用方法
+## 从零开始使用指南
 
-### 基本统计分析
-```python
-from utils import calculate_statistics
+### 1. 安装必要软件
 
-# 示例数据
-data = [3.97, 4.06, 4.01, 3.94, 4.00, 4.06]
+#### 1.1 安装Python
+1. 访问Python官网 https://www.python.org/downloads/ 下载最新版Python
+2. 运行安装程序，确保勾选「Add Python to PATH」选项
+3. 完成安装后，打开命令提示符（按Win+R，输入cmd），输入`python --version`验证安装
 
-# 计算基本统计量
-stats = calculate_statistics(data)
-print(stats)
-```
+#### 1.2 安装VSCode
+1. 访问Visual Studio Code官网 https://code.visualstudio.com/ 下载VSCode
+2. 运行安装程序，按照默认选项完成安装
+3. 打开VSCode，安装Python扩展：点击左侧扩展图标，搜索「Python」并安装
 
-### 绘制频率分布直方图
-```python
-from utils import plot_histogram_with_normal_fit
+### 2. 从GitHub下载代码
 
-# 绘制频率分布直方图与正态分布拟合曲线
-fig, bins, n = plot_histogram_with_normal_fit(data, x_label='测量值',  title='频率分布直方图与正态分布拟合')
-```
+#### 2.1 使用浏览器下载（简单方法）
+1. 访问项目GitHub页面
+2. 点击绿色的「Code」按钮，然后点击「Download ZIP」
+3. 解压下载的ZIP文件到你想要的位置
 
-### 线性回归分析
-```python
-from utils import linear_regression, plot_linear_regression
+#### 2.2 使用Git克隆（推荐方法）
+1. 安装Git：访问 https://git-scm.com/downloads 下载并安装Git
+2. 打开命令提示符，使用cd命令导航到你想保存代码的文件夹
+3. 输入`git clone [项目GitHub地址]`命令克隆仓库
 
-# 示例数据
-x = [1.0, 2.0, 3.0, 4.0, 5.0]
-y = [2.1, 3.9, 6.2, 7.8, 9.9]
+### 3. 安装依赖库
 
-# 进行线性回归分析
-reg_results = linear_regression(x, y)
+1. 打开命令行/终端
+2. 运行以下命令安装所需的Python库：
+   ```
+   pip install numpy pandas matplotlib scipy sympy jupyter
+   ```
+3. （可选）建议使用虚拟环境，如果不需要管理不同项目的依赖配置，可以跳过这一步。
+### 4. 使用Jupyter Notebook
+1. vscode下载jupyter插件
+2. 使用方法：shift+enter运行代码或显示markdown，双击编辑代码或markdown，esc退出编辑模式
+## 使用方法详见```基物实验数据处理示例.ipynb```
 
-# 绘制线性回归图
-fig_reg, ax_reg, _ = plot_linear_regression(x, y, x_label='X变量', y_label='Y变量', title='线性回归分析')
-```
-
-### 误差传递计算
-```python
-from utils import error_propagation
-
-# 定义计算函数
-def area_func(l, w):
-    "l * w"  # 这里的字符串会被error_propagation函数用作函数表达式
-    return l * w
-
-# 计算面积及其误差
-area, area_error = error_propagation(area_func, [5.0, 3.0], [0.1, 0.05], ['l', 'w'])
-```
-
-## 示例脚本
-
-包含了一个完整的示例脚本 `示例_数据处理.py`，展示了如何使用本工具包进行物理实验数据处理，包括：
-
-1. 基本统计分析与直方图
-2. 线性回归分析
-3. 误差传递计算
-4. 数据导出
-5. 批量数据处理
-
-运行示例脚本：
-```
-python 示例_数据处理.py
-```
+### 不确定度计算
+未开发完毕,详情见
+`基物实验数据处理示例.ipynb`
 
 ## 依赖库
 
@@ -93,10 +77,10 @@ python 示例_数据处理.py
 - pandas
 - matplotlib
 - scipy
-- sympy (用于误差传递计算)
+- sympy 
+- jupyter 
 
 ## 注意事项
 
 - 所有数值输出均格式化到小数点后三位
-- 图表中文显示需要安装中文字体（默认使用SimHei）
-- 误差传递计算需要安装sympy库
+- 首次使用时请先运行示例文件熟悉各函数的用法
